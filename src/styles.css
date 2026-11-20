@@ -1,0 +1,125 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-cream: var(--cream);
+  --color-night: var(--night);
+  --color-olive: var(--olive);
+  --color-gold: var(--gold);
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Playfair Display", "Cormorant Garamond", Georgia, serif;
+}
+
+:root {
+  --radius: 1rem;
+  --cream: oklch(0.957 0.013 80);
+  --night: oklch(0.24 0.018 215);
+  --olive: oklch(0.55 0.05 140);
+  --gold: oklch(0.76 0.13 85);
+
+  --background: oklch(1 0 0);
+  --foreground: var(--night);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--night);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--night);
+  --primary: var(--night);
+  --primary-foreground: oklch(0.98 0.01 80);
+  --secondary: var(--cream);
+  --secondary-foreground: var(--night);
+  --muted: oklch(0.96 0.005 80);
+  --muted-foreground: oklch(0.5 0.015 215);
+  --accent: var(--gold);
+  --accent-foreground: var(--night);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.92 0.005 80);
+  --input: oklch(0.94 0.005 80);
+  --ring: var(--gold);
+}
+
+.dark {
+  --background: var(--night);
+  --foreground: var(--cream);
+  --card: oklch(0.3 0.02 215);
+  --card-foreground: var(--cream);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    font-weight: 700;
+  }
+}
+
+/* Legacy utility shims so old class names still render (rounded + soft now) */
+@utility brutal-border { border: 1px solid color-mix(in oklab, var(--night) 10%, transparent); }
+@utility brutal-shadow { box-shadow: 0 25px 50px -12px rgba(0,0,0,0.18); }
+@utility brutal-shadow-gold { box-shadow: 0 25px 60px -15px color-mix(in oklab, var(--gold) 50%, transparent); }
+
+@utility glass {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+@utility glass-dark {
+  background: rgba(26, 42, 47, 0.55);
+  backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@utility soft-shadow { box-shadow: 0 10px 40px -10px rgba(15, 23, 42, 0.15); }
+@utility lux-shadow { box-shadow: 0 30px 80px -20px rgba(15, 23, 42, 0.25); }
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(28px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-18px) rotate(4deg); }
+}
+@keyframes kenburns {
+  0% { transform: scale(1) translate(0, 0); }
+  100% { transform: scale(1.12) translate(-1%, -1%); }
+}
+
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.9s ease, transform 0.9s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+.animate-float-slow { animation: float-slow 9s ease-in-out infinite; }
+.animate-kenburns { animation: kenburns 12s ease-out forwards; }
